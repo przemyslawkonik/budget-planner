@@ -14,14 +14,18 @@ import com.github.przemyslawkonik.repository.UserRepository;
 public class UserService {
 
 	@Autowired
-	private UserRepository userRep;
+	private UserRepository userRepo;
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	public void save(User user) {
+	public User save(User user) {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		userRep.save(user);
+		return userRepo.save(user);
+	}
+
+	public boolean isEmailAvaliable(String email) {
+		return !userRepo.existsByEmail(email);
 	}
 
 }
