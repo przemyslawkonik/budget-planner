@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.github.przemyslawkonik.bean.LoginData;
+import com.github.przemyslawkonik.bean.SessionManager;
 import com.github.przemyslawkonik.entity.User;
 import com.github.przemyslawkonik.repository.UserRepository;
 
@@ -19,12 +21,25 @@ public class UserService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	public User save(User user) {
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		return userRepo.save(user);
+	public boolean register(User user) {
+		if (isEmailAvaliable(user.getEmail())) {
+			user.setPassword(passwordEncoder.encode(user.getPassword()));
+			SessionManager.session().setAttribute("user", user);
+			return true;
+		}
+		return false;
 	}
 
-	public boolean isEmailAvaliable(String email) {
+	public boolean logIn(LoginData loginData) {
+		if (loginData.isUserValid()) {
+			User user = loginData.getUser();
+			SessionManager.session().setAttribute("user", user);
+			return true;
+		}
+		return false;
+	}
+
+	private boolean isEmailAvaliable(String email) {
 		return !userRepo.existsByEmail(email);
 	}
 
