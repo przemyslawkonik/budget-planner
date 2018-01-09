@@ -21,25 +21,27 @@ public class UserService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	public boolean register(User user) {
-		if (isEmailAvaliable(user.getEmail())) {
-			user.setPassword(passwordEncoder.encode(user.getPassword()));
-			SessionManager.session().setAttribute("user", user);
-			return true;
-		}
-		return false;
+	public User register(User user) {
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		userRepo.save(user);
+		return logIn(user);
 	}
 
-	public boolean logIn(LoginData loginData) {
-		if (loginData.isUserValid()) {
-			User user = loginData.getUser();
-			SessionManager.session().setAttribute("user", user);
-			return true;
-		}
-		return false;
+	public User logIn(User user) {
+		SessionManager.session().setAttribute("user", user);
+		return user;
 	}
 
-	private boolean isEmailAvaliable(String email) {
+	public void logOut() {
+		SessionManager.session().invalidate();
+	}
+
+	public boolean verifyLogin(LoginData ld) {
+		User user = userRepo.findByEmail(ld.getEmail());
+		return user != null && passwordEncoder.matches(ld.getPassword(), user.getPassword());
+	}
+
+	public boolean isEmailAvaliable(String email) {
 		return !userRepo.existsByEmail(email);
 	}
 

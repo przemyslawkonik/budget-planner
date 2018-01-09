@@ -32,10 +32,11 @@ public class RegisterController {
 		if (br.hasErrors()) {
 			return "register";
 		}
-		if (!userService.register(user)) {
+		if (!userService.isEmailAvaliable(user.getEmail())) {
 			model.addAttribute("errorEmail", "That email is already taken");
 			return "register";
 		}
+		userService.register(user);
 		return "redirect:/";
 	}
 }
