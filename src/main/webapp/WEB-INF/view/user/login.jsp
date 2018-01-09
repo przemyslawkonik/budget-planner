@@ -11,6 +11,7 @@
 </head>
 <body>
  <%@ include file="../jspf/menu/menu_bar.jspf" %>
- <%@ include file="../jspf/user/user_login.jspf" %>
+ <%@ include file="../jspf/user/user_login_form.jspf" %>
+ <a href="${pageContext.request.contextPath}/register">register</a>
 </body>
 </html>

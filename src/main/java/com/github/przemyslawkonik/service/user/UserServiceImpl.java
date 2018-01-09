@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 import com.github.przemyslawkonik.bean.LoginData;
 import com.github.przemyslawkonik.bean.SessionManager;
 import com.github.przemyslawkonik.entity.User;
+import com.github.przemyslawkonik.exception.UserEmailException;
 import com.github.przemyslawkonik.exception.UserLoginException;
-import com.github.przemyslawkonik.exception.UserRegistrationException;
 import com.github.przemyslawkonik.repository.UserRepository;
 
 @Service
@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User registerUser(User user) {
 		if (!isEmailAvaliable(user.getEmail())) {
-			throw new UserRegistrationException();
+			throw new UserEmailException();
 		}
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		userRepo.save(user);
@@ -55,6 +55,26 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean isUserLogged() {
 		return SessionManager.session().getAttribute("user") != null;
+	}
+
+	@Override
+	public User editUser(User user) {
+		if (!isEmailAvaliable(user.getEmail())) {
+			User dbUserId = userRepo.findOne(user.getId());
+			User dbUserEmail = userRepo.findByEmail(user.getEmail());
+			if (dbUserEmail.getId() != dbUserId.getId()) {
+				throw new UserEmailException();
+			}
+		}
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		userRepo.save(user);
+		return logInUser(user);
+	}
+
+	@Override
+	public void deleteUser(long id) {
+		userRepo.delete(id);
+		logOutUser();
 	}
 
 	private boolean verifyLogin(LoginData ld) {

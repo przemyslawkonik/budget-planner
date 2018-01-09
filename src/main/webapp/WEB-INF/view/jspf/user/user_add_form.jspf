@@ -12,5 +12,5 @@
  <p>${errorEmail}</p>
  <p><form:input path="password" type="password" placeholder="password"/></p>
  <p><form:errors path="password"/></p>
- <input type="submit" value="Register"/>
+ <input type="submit" value="Submit"/>
 </form:form>

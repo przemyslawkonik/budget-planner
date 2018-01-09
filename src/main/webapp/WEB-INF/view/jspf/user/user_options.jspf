@@ -4,14 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Budget planner</title>
-</head>
-<body>
- <%@ include file="../jspf/menu/menu_bar.jspf" %>
- <p>Registration</p>
- <%@ include file="../jspf/user/user_add_form.jspf" %>
-</body>
-</html>
+<ul>
+ <li><a href="${pageContext.request.contextPath}/users/edit/${sessionScope.user.id}">Edit account</a></li>
+ <li><a href="${pageContext.request.contextPath}/users/delete/${sessionScope.user.id}">Remove account</a></li>
+</ul>

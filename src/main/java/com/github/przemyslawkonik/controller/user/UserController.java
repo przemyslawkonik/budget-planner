@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -16,29 +17,42 @@ import com.github.przemyslawkonik.exception.UserEmailException;
 import com.github.przemyslawkonik.service.user.UserService;
 
 @Controller
-@RequestMapping("/register")
-public class RegisterController {
+@RequestMapping("/users")
+public class UserController {
 
 	@Autowired
 	private UserService userService;
 
-	@GetMapping("")
-	public String register(Model model) {
-		model.addAttribute("user", new User());
-		return "user/register";
+	@GetMapping("/{id}")
+	public String user() {
+		return "user/user_profile";
 	}
 
-	@PostMapping("")
-	public String register(Model model, @Valid @ModelAttribute User user, BindingResult br) {
+	@GetMapping("/edit/{id}")
+	public String editUser(Model model, @PathVariable long id) {
+		model.addAttribute("user", new User());
+		return "user/user_edit";
+	}
+
+	@PostMapping("/edit/{id}")
+	public String editUser(Model model, @PathVariable long id, @Valid @ModelAttribute User user, BindingResult br) {
 		if (br.hasErrors()) {
-			return "user/register";
+			return "user/user_edit";
 		}
 		try {
-			userService.registerUser(user);
-			return "redirect:/";
+			user.setId(id);
+			userService.editUser(user);
+			return "redirect:/users/" + id;
 		} catch (UserEmailException e) {
 			model.addAttribute("errorEmail", "That email is already taken");
-			return "user/register";
+			return "user/user_edit";
 		}
 	}
+
+	@GetMapping("/delete/{id}")
+	public String deleteUser(@PathVariable long id) {
+		userService.deleteUser(id);
+		return "redirect:/";
+	}
+
 }

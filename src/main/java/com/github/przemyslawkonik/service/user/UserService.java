@@ -13,4 +13,8 @@ public interface UserService {
 	void logOutUser();
 
 	boolean isUserLogged();
+
+	User editUser(User user);
+
+	void deleteUser(long id);
 }

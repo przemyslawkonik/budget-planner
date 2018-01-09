@@ -10,8 +10,10 @@
 <title>Budget planner</title>
 </head>
 <body>
+ <%@ include file="../jspf/user/user_info.jspf" %>
+ <%@ include file="../jspf/user/user_bar.jspf" %>
  <%@ include file="../jspf/menu/menu_bar.jspf" %>
- <p>Registration</p>
- <%@ include file="../jspf/user/user_add_form.jspf" %>
+ <p>Options</p>
+ <%@ include file="../jspf/user/user_options.jspf" %>
 </body>
 </html>

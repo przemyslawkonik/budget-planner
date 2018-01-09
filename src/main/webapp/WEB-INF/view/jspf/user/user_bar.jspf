@@ -6,6 +6,7 @@
 
 <c:if test="${not empty sessionScope.user}">
  <ul>
+  <li><a href="${pageContext.request.contextPath}/users/${sessionScope.user.id}">Profile</a></li>
   <li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
  </ul>
 </c:if>

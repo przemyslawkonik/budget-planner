@@ -8,6 +8,5 @@
  <p><form:input path="email" placeholder="email"/></p>
  <p><form:input path="password" type="password" placeholder="password"/></p>
  <p>${errorData}</p>
- <a href="${pageContext.request.contextPath}/register">register</a>
  <input type="submit" value="Log in"/>
 </form:form>
