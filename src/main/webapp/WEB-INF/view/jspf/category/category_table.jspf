@@ -1,0 +1,22 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" isELIgnored="false" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<table>
+ <tr>
+  <th>Name</th>
+  <th>Type</th>
+  <th colspan="2"></th>
+ </tr>
+ <c:forEach var="category" items="${categories}">
+  <tr>
+   <td>${category.name}</td>
+   <td>${category.type}</td>
+   <td><a href="${pageContext.request.contextPath}/categories/edit/${category.id}">Edit</a></td>
+   <td><a href="${pageContext.request.contextPath}/categories/remove/${category.id}">Remove</a></td>
+  </tr>
+ </c:forEach>
+</table>
+ 

@@ -10,15 +10,10 @@
 <title>Budget planner</title>
 </head>
 <body>
- <form:form method="post" modelAttribute="user">
-  <p><form:input path="username" placeholder="username"/></p>
-  <form:errors path="username"/>
-  <p><form:input path="email" placeholder="email"/></p>
-  <form:errors path="email"/>
-  ${errorEmail}
-  <p><form:input path="password" type="password" placeholder="password"/></p>
-  <form:errors path="password"/>
-  <p><input type="submit" value="Register"/></p>
- </form:form>
+ <%@ include file="../jspf/user/user_info.jspf" %>
+ <%@ include file="../jspf/user/user_bar.jspf" %>
+ <%@ include file="../jspf/menu/menu_bar.jspf" %>
+ <p>Add category</p>
+ <%@ include file="../jspf/category/category_form.jspf" %>
 </body>
 </html>
