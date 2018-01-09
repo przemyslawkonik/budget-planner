@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.github.przemyslawkonik.bean.LoginData;
-import com.github.przemyslawkonik.repository.UserRepository;
-import com.github.przemyslawkonik.service.UserService;
+import com.github.przemyslawkonik.exception.UserLoginException;
+import com.github.przemyslawkonik.service.user.UserService;
 
 @Controller
 @RequestMapping("/login")
@@ -19,23 +19,21 @@ public class LoginController {
 	@Autowired
 	private UserService userService;
 
-	@Autowired
-	private UserRepository userRepo;
-
 	@GetMapping("")
 	public String login(Model model) {
 		model.addAttribute("loginData", new LoginData());
-		return "login";
+		return "user/login";
 	}
 
 	@PostMapping("")
 	public String login(Model model, @ModelAttribute LoginData loginData) {
-		if (!userService.verifyLogin(loginData)) {
+		try {
+			userService.logInUser(loginData);
+			return "redirect:/";
+		} catch (UserLoginException e) {
 			model.addAttribute("errorData", "Incorrect data");
-			return "login";
+			return "user/login";
 		}
-		userService.logIn(userRepo.findByEmail(loginData.getEmail()));
-		return "redirect:/";
 	}
 
 }

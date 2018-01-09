@@ -1,4 +1,4 @@
-package com.github.przemyslawkonik.controller;
+package com.github.przemyslawkonik.controller.category;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,13 +34,13 @@ public class CategoryController {
 	@GetMapping("/add")
 	public String add(Model model) {
 		model.addAttribute("category", new Category());
-		return "/category/add_category";
+		return "/category/category_add";
 	}
 
 	@PostMapping("/add")
 	public String add(@Valid @ModelAttribute Category category, BindingResult br) {
 		if (br.hasErrors()) {
-			return "/category/add_category";
+			return "/category/category_add";
 		}
 		catRep.save(category);
 		return "redirect:/categories";
@@ -49,19 +49,19 @@ public class CategoryController {
 	@GetMapping("/edit/{id}")
 	public String edit(Model model, @PathVariable long id) {
 		model.addAttribute("category", catRep.findOne(id));
-		return "/category/edit_category";
+		return "/category/category_edit";
 	}
 
 	@PostMapping("/edit/{id}")
 	public String edit(@Valid @ModelAttribute Category category, BindingResult br) {
 		if (br.hasErrors()) {
-			return "/category/add_category";
+			return "/category/category_edit";
 		}
 		catRep.save(category);
 		return "redirect:/categories";
 	}
 
-	@GetMapping("/remove{id}")
+	@GetMapping("/remove/{id}")
 	public String remove(@PathVariable long id) {
 		catRep.delete(id);
 		return "redirect:/categories";

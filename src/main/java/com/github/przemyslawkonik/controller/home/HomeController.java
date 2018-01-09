@@ -1,4 +1,4 @@
-package com.github.przemyslawkonik.controller.user;
+package com.github.przemyslawkonik.controller.home;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,16 +8,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.github.przemyslawkonik.service.user.UserService;
 
 @Controller
-@RequestMapping("/logout")
-public class LogoutController {
+@RequestMapping("/")
+public class HomeController {
 
 	@Autowired
-	private UserService userService;
+	UserService userService;
 
 	@GetMapping("")
-	public String logout() {
-		userService.logOutUser();
-		return "redirect:/";
+	public String home() {
+		if (userService.isUserLogged()) {
+			return "home/home";
+		}
+		return "redirect:/login";
 	}
-
 }

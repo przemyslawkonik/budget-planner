@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.github.przemyslawkonik.entity.User;
-import com.github.przemyslawkonik.service.UserService;
+import com.github.przemyslawkonik.exception.UserRegistrationException;
+import com.github.przemyslawkonik.service.user.UserService;
 
 @Controller
 @RequestMapping("/register")
@@ -24,19 +25,20 @@ public class RegisterController {
 	@GetMapping("")
 	public String register(Model model) {
 		model.addAttribute("user", new User());
-		return "register";
+		return "user/register";
 	}
 
 	@PostMapping("")
 	public String register(Model model, @Valid @ModelAttribute User user, BindingResult br) {
 		if (br.hasErrors()) {
-			return "register";
+			return "user/register";
 		}
-		if (!userService.isEmailAvaliable(user.getEmail())) {
+		try {
+			userService.registerUser(user);
+			return "redirect:/";
+		} catch (UserRegistrationException e) {
 			model.addAttribute("errorEmail", "That email is already taken");
-			return "register";
+			return "user/register";
 		}
-		userService.register(user);
-		return "redirect:/";
 	}
 }

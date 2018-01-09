@@ -29,9 +29,8 @@ public class User {
 	@Size(min = 4, max = 24)
 	private String username;
 
-	@NotEmpty
 	@NotBlank
-	@Size(max = 60)
+	@Size(min = 5, max = 60)
 	private String password;
 
 	public long getId() {

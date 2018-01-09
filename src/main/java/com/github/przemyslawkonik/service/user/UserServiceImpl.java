@@ -1,4 +1,4 @@
-package com.github.przemyslawkonik.service;
+package com.github.przemyslawkonik.service.user;
 
 import javax.transaction.Transactional;
 
@@ -9,11 +9,13 @@ import org.springframework.stereotype.Service;
 import com.github.przemyslawkonik.bean.LoginData;
 import com.github.przemyslawkonik.bean.SessionManager;
 import com.github.przemyslawkonik.entity.User;
+import com.github.przemyslawkonik.exception.UserLoginException;
+import com.github.przemyslawkonik.exception.UserRegistrationException;
 import com.github.przemyslawkonik.repository.UserRepository;
 
 @Service
 @Transactional
-public class UserService {
+public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository userRepo;
@@ -21,27 +23,46 @@ public class UserService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	public User register(User user) {
+	@Override
+	public User registerUser(User user) {
+		if (!isEmailAvaliable(user.getEmail())) {
+			throw new UserRegistrationException();
+		}
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		userRepo.save(user);
-		return logIn(user);
+		return logInUser(user);
 	}
 
-	public User logIn(User user) {
+	@Override
+	public User logInUser(User user) {
 		SessionManager.session().setAttribute("user", user);
 		return user;
 	}
 
-	public void logOut() {
+	@Override
+	public User logInUser(LoginData loginData) {
+		if (!verifyLogin(loginData)) {
+			throw new UserLoginException();
+		}
+		return logInUser(userRepo.findByEmail(loginData.getEmail()));
+	}
+
+	@Override
+	public void logOutUser() {
 		SessionManager.session().invalidate();
 	}
 
-	public boolean verifyLogin(LoginData ld) {
+	@Override
+	public boolean isUserLogged() {
+		return SessionManager.session().getAttribute("user") != null;
+	}
+
+	private boolean verifyLogin(LoginData ld) {
 		User user = userRepo.findByEmail(ld.getEmail());
 		return user != null && passwordEncoder.matches(ld.getPassword(), user.getPassword());
 	}
 
-	public boolean isEmailAvaliable(String email) {
+	private boolean isEmailAvaliable(String email) {
 		return !userRepo.existsByEmail(email);
 	}
 
