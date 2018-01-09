@@ -5,6 +5,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <form:form method="post" modelAttribute="category">
+ <p><form:hidden path="user" value="${sessionScope.user.id}"/></p>
+ <p><form:errors path="user"/>
  <p><form:input path="name" placeholder="name"/></p>
  <p><form:errors path="name"/></p>
  <p><form:radiobuttons path="type" items="${types}"/></p>

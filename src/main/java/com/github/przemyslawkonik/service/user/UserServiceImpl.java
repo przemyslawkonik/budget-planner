@@ -77,6 +77,11 @@ public class UserServiceImpl implements UserService {
 		logOutUser();
 	}
 
+	@Override
+	public User getSessionUser() {
+		return (User) SessionManager.session().getAttribute("user");
+	}
+
 	private boolean verifyLogin(LoginData ld) {
 		User user = userRepo.findByEmail(ld.getEmail());
 		return user != null && passwordEncoder.matches(ld.getPassword(), user.getPassword());

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.github.przemyslawkonik.entity.Category;
 import com.github.przemyslawkonik.repository.CategoryRepository;
+import com.github.przemyslawkonik.service.user.UserService;
 
 @Controller
 @RequestMapping("/categories")
@@ -25,9 +26,12 @@ public class CategoryController {
 	@Autowired
 	private CategoryRepository catRep;
 
+	@Autowired
+	private UserService userService;
+
 	@GetMapping("")
 	public String categories(Model model) {
-		model.addAttribute("categories", catRep.findAll());
+		model.addAttribute("categories", catRep.findByUser(userService.getSessionUser()));
 		return "/category/category_menu";
 	}
 

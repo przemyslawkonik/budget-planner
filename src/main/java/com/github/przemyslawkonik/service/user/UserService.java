@@ -17,4 +17,6 @@ public interface UserService {
 	User editUser(User user);
 
 	void deleteUser(long id);
+
+	User getSessionUser();
 }
