@@ -1,10 +1,15 @@
 package com.github.przemyslawkonik.entity;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -32,6 +37,9 @@ public class User {
 	@NotBlank
 	@Size(min = 5, max = 60)
 	private String password;
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.REMOVE)
+	private Set<Category> categories;
 
 	public long getId() {
 		return id;
@@ -63,6 +71,14 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Set<Category> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(Set<Category> categories) {
+		this.categories = categories;
 	}
 
 }
