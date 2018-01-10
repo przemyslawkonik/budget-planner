@@ -24,7 +24,7 @@ public class CashFlow {
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	private Category category;
 
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private PaymentMethod paymentMethod;
 
 	public long getId() {

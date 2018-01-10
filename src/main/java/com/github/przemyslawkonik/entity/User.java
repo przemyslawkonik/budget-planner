@@ -47,15 +47,13 @@ public class User {
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.REMOVE)
 	private Set<Category> categories;
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE })
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "payment_method_id") })
 	private Set<PaymentMethod> paymentMethods;
 
-	// @Column(columnDefinition = "decimal default 0")
 	private BigDecimal cash;
 
-	// @Column(columnDefinition = "decimal default 0")
 	private BigDecimal accountValue;
 
 	public User() {
@@ -133,18 +131,60 @@ public class User {
 	}
 
 	public BigDecimal addCash(BigDecimal amount) {
-		return getCash().add(amount);
+		return cash = getCash().add(amount);
 	}
 
 	public BigDecimal addToAccount(BigDecimal amount) {
-		return getAccountValue().add(amount);
+		return accountValue = getAccountValue().add(amount);
 	}
 
 	public BigDecimal subtractCash(BigDecimal amount) {
-		return getCash().subtract(amount);
+		return cash = getCash().subtract(amount);
 	}
 
 	public BigDecimal subtractFromAccount(BigDecimal amount) {
-		return getAccountValue().subtract(amount);
+		return accountValue = getAccountValue().subtract(amount);
+	}
+
+	public void updateMoney(CashFlow cashFlow) {
+		switch (cashFlow.getCategory().getType()) {
+		case "income": {
+			if (cashFlow.getPaymentMethod().getName().equals("cash")) {
+				addCash(cashFlow.getValue());
+			} else {
+				addToAccount(cashFlow.getValue());
+			}
+			break;
+		}
+		case "expense": {
+			if (cashFlow.getPaymentMethod().getName().equals("cash")) {
+				subtractCash(cashFlow.getValue());
+			} else {
+				subtractFromAccount(cashFlow.getValue());
+			}
+			break;
+		}
+		}
+	}
+
+	public void updateMoneyOnDelete(CashFlow cashFlow) {
+		switch (cashFlow.getCategory().getType()) {
+		case "income": {
+			if (cashFlow.getPaymentMethod().getName().equals("cash")) {
+				subtractCash(cashFlow.getValue());
+			} else {
+				subtractFromAccount(cashFlow.getValue());
+			}
+			break;
+		}
+		case "expense": {
+			if (cashFlow.getPaymentMethod().getName().equals("cash")) {
+				addCash(cashFlow.getValue());
+			} else {
+				addToAccount(cashFlow.getValue());
+			}
+			break;
+		}
+		}
 	}
 }

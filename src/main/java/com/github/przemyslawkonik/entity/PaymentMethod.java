@@ -28,10 +28,10 @@ public class PaymentMethod {
 	@Size(min = 3, max = 20)
 	private String name;
 
-	@ManyToMany(mappedBy = "paymentMethods", fetch = FetchType.EAGER)
+	@ManyToMany(mappedBy = "paymentMethods", fetch = FetchType.EAGER, cascade = { CascadeType.MERGE })
 	private Set<User> users;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "paymentMethod", cascade = CascadeType.REMOVE)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "paymentMethod", cascade = { CascadeType.MERGE })
 	private Set<CashFlow> cashFlows;
 
 	public PaymentMethod() {
