@@ -66,7 +66,7 @@ public class UserController {
 
 	@GetMapping("/edit/payments/{id}")
 	public String editUserPaymentMethods(Model model, @PathVariable long id) {
-		model.addAttribute("user", userRepo.findOne(id));
+		// model.addAttribute("user", userRepo.findOne(id));
 		model.addAttribute("methods", paymentRepo.findAll());
 		return "/user/user_payment_methods_edit";
 	}
@@ -75,6 +75,22 @@ public class UserController {
 	public String editUserPaymentMethods(@ModelAttribute User user) {
 		userRepo.save(user);
 		return "redirect:/users/" + user.getId();
+	}
+
+	@GetMapping("/edit/money/{id}")
+	public String editUserMoney() {
+		return "/user/user_money_edit";
+	}
+
+	@PostMapping("/edit/money/{id}")
+	public String editUserMoney(@ModelAttribute User user) {
+		userRepo.save(user);
+		return "redirect:/users/" + user.getId();
+	}
+
+	@ModelAttribute("user")
+	public User user() {
+		return userService.getSessionUser();
 	}
 
 }
