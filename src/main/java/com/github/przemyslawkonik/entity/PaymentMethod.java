@@ -3,12 +3,14 @@ package com.github.przemyslawkonik.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -28,6 +30,9 @@ public class PaymentMethod {
 
 	@ManyToMany(mappedBy = "paymentMethods", fetch = FetchType.EAGER)
 	private Set<User> users;
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "paymentMethod", cascade = CascadeType.REMOVE)
+	private Set<CashFlow> cashFlows;
 
 	public PaymentMethod() {
 		users = new HashSet<>();
@@ -55,6 +60,14 @@ public class PaymentMethod {
 
 	public void setUsers(Set<User> users) {
 		this.users = users;
+	}
+
+	public Set<CashFlow> getCashFlows() {
+		return cashFlows;
+	}
+
+	public void setCashFlows(Set<CashFlow> cashFlows) {
+		this.cashFlows = cashFlows;
 	}
 
 }
