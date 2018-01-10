@@ -3,7 +3,9 @@ package com.github.przemyslawkonik.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,18 +25,18 @@ public class Budget {
 
 	private int year;
 
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "budget", cascade = CascadeType.PERSIST)
 	private Set<Plan> plans;
 
-	@OneToMany
-	private Set<Plan> cashFlows;
+	// @OneToMany(fetch = FetchType.EAGER)
+	// private Set<Plan> cashFlows;
 
 	@ManyToOne
 	private User user;
 
 	public Budget() {
 		plans = new HashSet<>();
-		cashFlows = new HashSet<>();
+		// cashFlows = new HashSet<>();
 	}
 
 	public long getId() {
@@ -69,13 +71,13 @@ public class Budget {
 		this.plans = plans;
 	}
 
-	public Set<Plan> getCashFlows() {
-		return cashFlows;
-	}
-
-	public void setCashFlows(Set<Plan> cashFlows) {
-		this.cashFlows = cashFlows;
-	}
+	// public Set<Plan> getCashFlows() {
+	// return cashFlows;
+	// }
+	//
+	// public void setCashFlows(Set<Plan> cashFlows) {
+	// this.cashFlows = cashFlows;
+	// }
 
 	public User getUser() {
 		return user;

@@ -25,6 +25,9 @@ public class Plan {
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	private Category category;
 
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+	private Budget budget;
+
 	public Plan() {
 		value = new BigDecimal("0");
 	}
@@ -51,6 +54,14 @@ public class Plan {
 
 	public void setCategory(Category category) {
 		this.category = category;
+	}
+
+	public Budget getBudget() {
+		return budget;
+	}
+
+	public void setBudget(Budget budget) {
+		this.budget = budget;
 	}
 
 }
