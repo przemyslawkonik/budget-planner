@@ -36,6 +36,7 @@ public class PaymentMethod {
 
 	public PaymentMethod() {
 		users = new HashSet<>();
+		cashFlows = new HashSet<>();
 	}
 
 	public int getId() {
