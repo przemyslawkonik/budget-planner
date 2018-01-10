@@ -13,13 +13,15 @@
  <%@ include file="../jspf/user/user_info.jspf" %>
  <%@ include file="../jspf/user/user_bar.jspf" %>
  <%@ include file="../jspf/menu/menu_bar.jspf" %>
- <p>Options</p>
- <%@ include file="../jspf/user/user_options.jspf" %>
- <p>Money</p>
- <%@ include file="../jspf/user/user_money.jspf" %>
- <p>Balance ${user.balance}</p>
- <p>Payment methods</p>
- <%@ include file="../jspf/user/user_payment_methods.jspf" %>
- <a href="${pageContext.request.contextPath}/users/edit/payments/${user.id}">Edit payment methods</a>
+ <p>Edit payment methods</p>
+ <form:form method="post" modelAttribute="user">
+  <form:checkboxes path="paymentMethods" items="${methods}" itemValue="id" itemLabel="name"/>
+  <form:hidden path="username"/>
+  <form:hidden path="email"/>
+  <form:hidden path="password"/>
+  <form:hidden path="cash"/>
+  <form:hidden path="accountValue"/>
+  <input type="submit" value="submit"/>
+ </form:form>
 </body>
 </html>
