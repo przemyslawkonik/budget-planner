@@ -1,6 +1,7 @@
 package com.github.przemyslawkonik.entity;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -112,7 +113,7 @@ public class User {
 	}
 
 	public BigDecimal getCash() {
-		return cash;
+		return cash.setScale(2, RoundingMode.DOWN);
 	}
 
 	public void setCash(BigDecimal amount) {
@@ -120,7 +121,7 @@ public class User {
 	}
 
 	public BigDecimal getAccountValue() {
-		return accountValue;
+		return accountValue.setScale(2, RoundingMode.DOWN);
 	}
 
 	public void setAccountValue(BigDecimal amount) {
