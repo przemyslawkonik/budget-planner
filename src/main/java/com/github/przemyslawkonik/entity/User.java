@@ -1,5 +1,7 @@
 package com.github.przemyslawkonik.entity;
 
+import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -49,6 +51,18 @@ public class User {
 			@JoinColumn(name = "payment_method_id") })
 	private Set<PaymentMethod> paymentMethods;
 
+	// @Column(columnDefinition = "decimal default 0")
+	private BigDecimal cash;
+
+	// @Column(columnDefinition = "decimal default 0")
+	private BigDecimal accountValue;
+
+	public User() {
+		paymentMethods = new HashSet<>();
+		cash = new BigDecimal("0");
+		accountValue = new BigDecimal("0");
+	}
+
 	public long getId() {
 		return id;
 	}
@@ -97,4 +111,39 @@ public class User {
 		this.paymentMethods = paymentMethods;
 	}
 
+	public BigDecimal getCash() {
+		return cash;
+	}
+
+	public void setCash(BigDecimal amount) {
+		this.cash = amount;
+	}
+
+	public BigDecimal getAccountValue() {
+		return accountValue;
+	}
+
+	public void setAccountValue(BigDecimal amount) {
+		this.accountValue = amount;
+	}
+
+	public BigDecimal getBalance() {
+		return getCash().add(getAccountValue());
+	}
+
+	public BigDecimal addCash(BigDecimal amount) {
+		return getCash().add(amount);
+	}
+
+	public BigDecimal addToAccount(BigDecimal amount) {
+		return getAccountValue().add(amount);
+	}
+
+	public BigDecimal subtractCash(BigDecimal amount) {
+		return getCash().subtract(amount);
+	}
+
+	public BigDecimal subtractFromAccount(BigDecimal amount) {
+		return getAccountValue().subtract(amount);
+	}
 }

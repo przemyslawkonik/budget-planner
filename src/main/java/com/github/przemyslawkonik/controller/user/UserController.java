@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.github.przemyslawkonik.entity.User;
 import com.github.przemyslawkonik.exception.UserEmailException;
+import com.github.przemyslawkonik.repository.PaymentMethodRepository;
+import com.github.przemyslawkonik.repository.UserRepository;
 import com.github.przemyslawkonik.service.user.UserService;
 
 @Controller
@@ -23,8 +25,15 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
+	@Autowired
+	private UserRepository userRepo;
+
+	@Autowired
+	private PaymentMethodRepository paymentRepo;
+
 	@GetMapping("/{id}")
-	public String user() {
+	public String user(Model model, @PathVariable long id) {
+		model.addAttribute("userMethods", paymentRepo.findAllByUsersId(id));
 		return "user/user_profile";
 	}
 
@@ -53,6 +62,19 @@ public class UserController {
 	public String deleteUser(@PathVariable long id) {
 		userService.deleteUser(id);
 		return "redirect:/";
+	}
+
+	@GetMapping("/edit/payments/{id}")
+	public String editUserPaymentMethods(Model model, @PathVariable long id) {
+		model.addAttribute("user", userRepo.findOne(id));
+		model.addAttribute("methods", paymentRepo.findAll());
+		return "/user/user_payment_methods_edit";
+	}
+
+	@PostMapping("/edit/payments/{id}")
+	public String editUserPaymentMethods(@ModelAttribute User user) {
+		userRepo.save(user);
+		return "redirect:/users/" + user.getId();
 	}
 
 }

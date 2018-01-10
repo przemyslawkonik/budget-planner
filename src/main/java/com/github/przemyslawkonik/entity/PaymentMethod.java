@@ -1,5 +1,6 @@
 package com.github.przemyslawkonik.entity;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -27,6 +28,10 @@ public class PaymentMethod {
 
 	@ManyToMany(mappedBy = "paymentMethods", fetch = FetchType.EAGER)
 	private Set<User> users;
+
+	public PaymentMethod() {
+		users = new HashSet<>();
+	}
 
 	public int getId() {
 		return id;
