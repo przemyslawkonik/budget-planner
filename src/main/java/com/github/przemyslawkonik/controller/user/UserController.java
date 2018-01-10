@@ -90,7 +90,7 @@ public class UserController {
 
 	@ModelAttribute("user")
 	public User user() {
-		return userService.getSessionUser();
+		return userRepo.findOne(userService.getSessionUser().getId());
 	}
 
 }
