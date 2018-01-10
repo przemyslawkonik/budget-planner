@@ -9,6 +9,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
@@ -40,6 +43,11 @@ public class User {
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.REMOVE)
 	private Set<Category> categories;
+
+	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE })
+	@JoinTable(joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "payment_method_id") })
+	private Set<PaymentMethod> paymentMethods;
 
 	public long getId() {
 		return id;
@@ -79,6 +87,14 @@ public class User {
 
 	public void setCategories(Set<Category> categories) {
 		this.categories = categories;
+	}
+
+	public Set<PaymentMethod> getPaymentMethods() {
+		return paymentMethods;
+	}
+
+	public void setPaymentMethods(Set<PaymentMethod> paymentMethods) {
+		this.paymentMethods = paymentMethods;
 	}
 
 }
