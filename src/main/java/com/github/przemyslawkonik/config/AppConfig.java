@@ -21,6 +21,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+import com.github.przemyslawkonik.converter.CategoryConverter;
 import com.github.przemyslawkonik.converter.PaymentMethodConverter;
 import com.github.przemyslawkonik.converter.UserConverter;
 
@@ -78,10 +79,16 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 		return new PaymentMethodConverter();
 	}
 
+	@Bean
+	public CategoryConverter categoryConverter() {
+		return new CategoryConverter();
+	}
+
 	@Override
 	public void addFormatters(FormatterRegistry registry) {
 		registry.addConverter(userConverter());
 		registry.addConverter(paymentMethodConverter());
+		registry.addConverter(categoryConverter());
 	}
 
 }
