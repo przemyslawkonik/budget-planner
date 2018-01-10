@@ -8,5 +8,6 @@
  <li><a href="${pageContext.request.contextPath}/">Home</a></li>
  <c:if test="${not empty sessionScope.user}">
   <li><a href="${pageContext.request.contextPath}/categories">Categories</a></li>
+  <li><a href="${pageContext.request.contextPath}/cash_flows">Cash Flows</a></li>
  </c:if>
 </ul>

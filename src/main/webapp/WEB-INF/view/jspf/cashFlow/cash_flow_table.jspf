@@ -1,0 +1,26 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" isELIgnored="false" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<table>
+ <tr>
+  <th>Category</th>
+  <th>Type</th>
+  <th>Value</th>
+  <th>Payment method</th>
+  <th colspan="2"></th>
+ </tr>
+ <c:forEach var="cashFlow" items="${cashFlows}">
+  <tr>
+   <td>${cashFlow.category.name}</td>
+   <td>${cashFlow.category.type}</td>
+   <td>${cashFlow.value}</td>
+   <td>${cashFlow.paymentMethod.name}</td>
+   <td><a href="${pageContext.request.contextPath}/cash_flows/edit/${cashFlow.id}">Edit</a></td>
+   <td><a href="${pageContext.request.contextPath}/cash_flows/remove/${cashFlow.id}">Remove</a></td>
+  </tr>
+ </c:forEach>
+</table>
+ 

@@ -82,4 +82,8 @@ public class Category {
 		this.cashflows = cashflows;
 	}
 
+	public String getDescription() {
+		return name + " (" + type + ")";
+	}
+
 }
