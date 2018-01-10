@@ -13,14 +13,14 @@
  <%@ include file="../jspf/user/user_info.jspf" %>
  <%@ include file="../jspf/user/user_bar.jspf" %>
  <%@ include file="../jspf/menu/menu_bar.jspf" %>
- <p>Options</p>
- <%@ include file="../jspf/user/user_options.jspf" %>
- <p>Money</p>
- <%@ include file="../jspf/user/user_money.jspf" %>
- <p>Balance ${user.balance}</p>
- <a href="${pageContext.request.contextPath}/users/edit/money/${user.id}">Edit money</a>
- <p>Payment methods</p>
- <%@ include file="../jspf/user/user_payment_methods.jspf" %>
- <a href="${pageContext.request.contextPath}/users/edit/payments/${user.id}">Edit payment methods</a>
+ <p>Edit money</p>
+ <form:form method="post" modelAttribute="user">
+  <p>Cash</p><form:input path="cash" type="number" step="any"/>
+  <p>Account</p><form:input path="accountValue" type="number" step="any"/>
+  <form:hidden path="username"/>
+  <form:hidden path="email"/>
+  <form:hidden path="password"/>
+  <p><input type="submit" value="submit"/><p>
+ </form:form>
 </body>
 </html>
