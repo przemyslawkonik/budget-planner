@@ -13,7 +13,16 @@
 <body>
  <%@ include file="../jspf/user/user_info.jspf" %>
  <%@ include file="../jspf/menu/menu_bar.jspf" %>
- <a href="${pageContext.request.contextPath}/cash_flows/add">Add new cash flow</a>
- <%@ include file="../jspf/cashFlow/cash_flow_table.jspf" %>
+ <div class="panel panel-primary">
+  <div class="panel-heading text-center"><span>Cash flow</span></div>
+   <div class="panel-body">
+   <%@ include file="../jspf/cashFlow/cash_flow_table.jspf" %>
+  </div>
+ </div>
+ <nav class="navbar">
+  <div class="navbar-form navbar-right">
+   <a class="btn btn-primary" href="${pageContext.request.contextPath}/cash_flows/add">Add new cash flow</a>
+  </div>
+ </nav>
 </body>
 </html>
