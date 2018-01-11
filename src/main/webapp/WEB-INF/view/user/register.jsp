@@ -12,7 +12,6 @@
 </head>
 <body>
  <%@ include file="../jspf/menu/menu_bar.jspf" %>
- <p>Registration</p>
  <%@ include file="../jspf/user/user_add_form.jspf" %>
 </body>
 </html>
