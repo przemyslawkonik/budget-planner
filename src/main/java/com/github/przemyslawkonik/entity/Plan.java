@@ -64,4 +64,24 @@ public class Plan {
 		this.budget = budget;
 	}
 
+	public BigDecimal getReality() {
+		BigDecimal sum = new BigDecimal("0");
+		for (CashFlow cf : budget.getCashFlows()) {
+			if (cf.getCategory().getName().equals(this.category.getName())) {
+				sum = sum.add(cf.getValue());
+			}
+		}
+		return sum.setScale(2, RoundingMode.DOWN);
+	}
+
+	public BigDecimal getBalance() {
+		BigDecimal diff = new BigDecimal("0");
+		if (category.getType().equals("income")) {
+			diff = getReality().subtract(value);
+			return diff.setScale(2, RoundingMode.DOWN);
+		}
+		diff = value.subtract(getReality());
+		return diff.setScale(2, RoundingMode.DOWN);
+	}
+
 }

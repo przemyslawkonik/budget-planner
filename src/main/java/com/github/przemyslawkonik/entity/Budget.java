@@ -1,5 +1,7 @@
 package com.github.przemyslawkonik.entity;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,15 +30,15 @@ public class Budget {
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "budget", cascade = CascadeType.PERSIST)
 	private Set<Plan> plans;
 
-	// @OneToMany(fetch = FetchType.EAGER)
-	// private Set<Plan> cashFlows;
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "budget")
+	private Set<CashFlow> cashFlows;
 
 	@ManyToOne
 	private User user;
 
 	public Budget() {
 		plans = new HashSet<>();
-		// cashFlows = new HashSet<>();
+		cashFlows = new HashSet<>();
 	}
 
 	public long getId() {
@@ -71,13 +73,13 @@ public class Budget {
 		this.plans = plans;
 	}
 
-	// public Set<Plan> getCashFlows() {
-	// return cashFlows;
-	// }
-	//
-	// public void setCashFlows(Set<Plan> cashFlows) {
-	// this.cashFlows = cashFlows;
-	// }
+	public Set<CashFlow> getCashFlows() {
+		return cashFlows;
+	}
+
+	public void setCashFlows(Set<CashFlow> cashFlows) {
+		this.cashFlows = cashFlows;
+	}
 
 	public User getUser() {
 		return user;
@@ -85,6 +87,26 @@ public class Budget {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public BigDecimal getRealityBalance() {
+		BigDecimal balance = new BigDecimal("0");
+		for (Plan p : plans) {
+			if (p.getCategory().getType().equals("income")) {
+				balance = balance.add(p.getReality());
+			} else {
+				balance = balance.subtract(p.getReality());
+			}
+		}
+		return balance.setScale(2, RoundingMode.DOWN);
+	}
+
+	public BigDecimal getPlannedBalance() {
+		BigDecimal balance = new BigDecimal("0");
+		for (Plan p : plans) {
+			balance = balance.add(p.getBalance());
+		}
+		return balance.setScale(2, RoundingMode.DOWN);
 	}
 
 }

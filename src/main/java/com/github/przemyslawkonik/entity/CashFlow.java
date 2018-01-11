@@ -27,6 +27,9 @@ public class CashFlow {
 	@ManyToOne(fetch = FetchType.EAGER)
 	private PaymentMethod paymentMethod;
 
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Budget budget;
+
 	public long getId() {
 		return id;
 	}
@@ -57,6 +60,14 @@ public class CashFlow {
 
 	public void setPaymentMethod(PaymentMethod paymentMethod) {
 		this.paymentMethod = paymentMethod;
+	}
+
+	public Budget getBudget() {
+		return budget;
+	}
+
+	public void setBudget(Budget budget) {
+		this.budget = budget;
 	}
 
 }
