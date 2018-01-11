@@ -1,5 +1,6 @@
 package com.github.przemyslawkonik.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.github.przemyslawkonik.entity.CashFlow;
 import com.github.przemyslawkonik.entity.Category;
 import com.github.przemyslawkonik.entity.PaymentMethod;
+import com.github.przemyslawkonik.entity.Plan;
+import com.github.przemyslawkonik.repository.BudgetRepository;
 import com.github.przemyslawkonik.repository.CashFlowRepository;
-import com.github.przemyslawkonik.repository.CategoryRepository;
 import com.github.przemyslawkonik.repository.PaymentMethodRepository;
 import com.github.przemyslawkonik.service.CashFlowService;
 import com.github.przemyslawkonik.service.user.UserService;
@@ -28,13 +30,13 @@ public class CashFlowController {
 	private UserService userService;
 
 	@Autowired
-	private CategoryRepository catRepo;
-
-	@Autowired
 	private PaymentMethodRepository paymentRepo;
 
 	@Autowired
 	private CashFlowRepository cashFlowRepo;
+
+	@Autowired
+	private BudgetRepository budgetRepo;
 
 	@Autowired
 	private CashFlowService cashFlowService;
@@ -77,7 +79,11 @@ public class CashFlowController {
 
 	@ModelAttribute("categories")
 	public List<Category> categories() {
-		return catRepo.findByUser(userService.getSessionUser());
+		List<Category> categories = new ArrayList<>();
+		for (Plan p : budgetRepo.findLatestByUserId(userService.getSessionUser().getId()).getPlans()) {
+			categories.add(p.getCategory());
+		}
+		return categories;
 	}
 
 	@ModelAttribute("methods")

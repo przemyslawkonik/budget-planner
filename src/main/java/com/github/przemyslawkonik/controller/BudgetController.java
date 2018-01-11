@@ -36,7 +36,13 @@ public class BudgetController {
 	@PostMapping("")
 	public String budgets(Model model, @RequestParam(defaultValue = "0") int year,
 			@RequestParam(defaultValue = "0") int month) {
-		model.addAttribute("budget", budgetRepo.findByUserAndYearAndMonth(userService.getSessionUser(), year, month));
+		Budget budget = budgetRepo.findByUserAndYearAndMonth(userService.getSessionUser(), year, month);
+		if (budget == null) {
+			model.addAttribute("budget", budgetRepo.findLatestByUserId(userService.getSessionUser().getId()));
+		} else {
+			model.addAttribute("budget",
+					budgetRepo.findByUserAndYearAndMonth(userService.getSessionUser(), year, month));
+		}
 		return "budget/budget_menu";
 	}
 
