@@ -12,5 +12,11 @@
  <%@ include file="../jspf/user/user_bar.jspf" %>
  <%@ include file="../jspf/menu/menu_bar.jspf" %>
  <a href="${pageContext.request.contextPath}/budgets/new">Create new budget</a>
+ <form method="post">
+  <input type="number" placeholder="year" name="year"/>
+  <input type="number" placeholder="month" name="month"/>
+  <input type="submit" value="find"/>
+ </form>
+ <%@ include file="../jspf/budget/budget_details.jspf" %>
 </body>
 </html>

@@ -17,7 +17,6 @@
  <%@ include file="../jspf/user/user_options.jspf" %>
  <p>Money</p>
  <%@ include file="../jspf/user/user_money.jspf" %>
- <p>Balance ${user.balance}</p>
  <a href="${pageContext.request.contextPath}/users/edit/money/${user.id}">Edit money</a>
  <p>Payment methods</p>
  <%@ include file="../jspf/user/user_payment_methods.jspf" %>

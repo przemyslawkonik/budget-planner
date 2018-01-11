@@ -12,5 +12,7 @@
  <%@ include file="../jspf/user/user_bar.jspf" %>
  <%@ include file="../jspf/menu/menu_bar.jspf" %>
  <p>HOME PAGE</p>
+ <%@ include file="../jspf/budget/budget_summary.jspf" %>
+ <%@ include file="../jspf/user/user_money.jspf" %>
 </body>
 </html>
