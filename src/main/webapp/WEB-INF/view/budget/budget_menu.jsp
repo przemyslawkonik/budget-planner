@@ -11,12 +11,26 @@
 <body>
  <%@ include file="../jspf/user/user_info.jspf" %>
  <%@ include file="../jspf/menu/menu_bar.jspf" %>
- <a href="${pageContext.request.contextPath}/budgets/new">Create new budget</a>
- <form method="post">
-  <input type="number" placeholder="year" name="year"/>
-  <input type="number" placeholder="month" name="month"/>
-  <input type="submit" value="find"/>
- </form>
- <%@ include file="../jspf/budget/budget_details.jspf" %>
+ <div class="panel panel-primary">
+  <div class="panel-heading text-center"><span>Budget ${budget.month}/${budget.year} details</span></div>
+  <div class="panel-body">
+   <%@ include file="../jspf/budget/budget_details.jspf" %>
+   <p>Budget reality balance: <strong>${budget.realityBalance}</strong></p>
+  </div>
+ </div>
+ <nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+   <form class="navbar-form navbar-left" method="post">
+    <div class="form-group">
+     <input class="form-control" type="number" placeholder="year" name="year"/>
+     <input class="form-control" type="number" placeholder="month" name="month"/>
+    </div>
+    <input class="btn btn-primary" type="submit" class="btn btn-default" value="Find"/>
+   </form>
+   <div class="navbar-form navbar-right">
+    <a class="btn btn-primary" href="${pageContext.request.contextPath}/budgets/new">Create new budget</a>
+   </div>
+  </div>
+</nav>
 </body>
 </html>

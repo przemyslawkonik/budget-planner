@@ -11,8 +11,12 @@
 <body>
  <%@ include file="../jspf/user/user_info.jspf" %>
  <%@ include file="../jspf/menu/menu_bar.jspf" %>
- <p>HOME PAGE</p>
- <%@ include file="../jspf/budget/budget_summary.jspf" %>
- <%@ include file="../jspf/user/user_money.jspf" %>
+ <div class="panel panel-primary">
+  <div class="panel-heading text-center"><span>Budget ${budget.month}/${budget.year} summary</span></div>
+  <div class="panel-body">
+   <%@ include file="../jspf/budget/budget_summary.jspf" %>
+   <p>Money balance: <strong>${budget.plannedBalance}</strong></p>
+  </div>
+ </div>
 </body>
 </html>
