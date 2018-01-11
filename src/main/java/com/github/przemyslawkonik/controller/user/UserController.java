@@ -31,9 +31,9 @@ public class UserController {
 	@Autowired
 	private PaymentMethodRepository paymentRepo;
 
-	@GetMapping("")
-	public String user(Model model) {
-		model.addAttribute("userMethods", paymentRepo.findAllByUsersId(userService.getSessionUser().getId()));
+	@GetMapping("/{id}")
+	public String user(Model model, @PathVariable long id) {
+		model.addAttribute("userMethods", userRepo.findOne(id));
 		return "user/user_profile";
 	}
 

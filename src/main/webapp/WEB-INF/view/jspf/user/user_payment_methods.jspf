@@ -8,7 +8,7 @@
  <div class="panel-heading">Payment methods</div>
  <div class="panel-body">
   <ul>
-   <c:forEach var="method" items="${userMethods}">
+   <c:forEach var="method" items="${user.paymentMethods}">
     <li>${method.name}</li>
    </c:forEach>
   </ul>

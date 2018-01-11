@@ -12,7 +12,7 @@
 </c:if>
 <c:if test="${not empty sessionScope.user}">
  <ul class="nav navbar-nav navbar-right">
- <li><a href="${pageContext.request.contextPath}/users"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+ <li><a href="${pageContext.request.contextPath}/users/${sessionScope.user.id}"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
  <li><a href="${pageContext.request.contextPath}/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
  </ul>
 </c:if>
