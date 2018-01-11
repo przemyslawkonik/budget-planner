@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.github.przemyslawkonik.entity.CashFlow;
 import com.github.przemyslawkonik.entity.User;
+import com.github.przemyslawkonik.repository.BudgetRepository;
 import com.github.przemyslawkonik.repository.CashFlowRepository;
 import com.github.przemyslawkonik.repository.UserRepository;
 import com.github.przemyslawkonik.service.user.UserService;
@@ -24,10 +25,14 @@ public class CashFlowService {
 	@Autowired
 	private CashFlowRepository cashFlowRepo;
 
+	@Autowired
+	private BudgetRepository budgetRepo;
+
 	public void addOrEditCashFlow(CashFlow cashFlow) {
 		User user = userRepo.findOne(userService.getSessionUser().getId());
 		user.updateMoney(cashFlow);
 		userRepo.save(user);
+		cashFlow.setBudget(budgetRepo.findLatest());
 		cashFlowRepo.save(cashFlow);
 	}
 
