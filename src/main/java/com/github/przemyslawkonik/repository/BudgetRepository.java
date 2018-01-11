@@ -10,8 +10,8 @@ public interface BudgetRepository extends JpaRepository<Budget, Long> {
 
 	public boolean existsByUserAndYearAndMonth(User user, int year, int month);
 
-	@Query(value = "SELECT * FROM budget ORDER BY id DESC LIMIT 1", nativeQuery = true)
-	public Budget findLatest();
+	@Query(value = "SELECT * FROM budget WHERE budget.user_id=?1 ORDER BY id DESC LIMIT 1", nativeQuery = true)
+	public Budget findLatestByUserId(long id);
 
-	public Budget findByYearAndMonth(int year, int month);
+	public Budget findByUserAndYearAndMonth(User user, int year, int month);
 }

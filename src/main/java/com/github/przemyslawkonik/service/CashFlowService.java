@@ -32,7 +32,7 @@ public class CashFlowService {
 		User user = userRepo.findOne(userService.getSessionUser().getId());
 		user.updateMoney(cashFlow);
 		userRepo.save(user);
-		cashFlow.setBudget(budgetRepo.findLatest());
+		cashFlow.setBudget(budgetRepo.findLatestByUserId(userService.getSessionUser().getId()));
 		cashFlowRepo.save(cashFlow);
 	}
 

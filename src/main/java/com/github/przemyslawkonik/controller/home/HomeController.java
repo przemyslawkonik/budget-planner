@@ -26,7 +26,7 @@ public class HomeController {
 	@GetMapping("")
 	public String home(Model model) {
 		if (userService.isUserLogged()) {
-			model.addAttribute("budget", budgetRepo.findLatest());
+			model.addAttribute("budget", budgetRepo.findLatestByUserId(userService.getSessionUser().getId()));
 			model.addAttribute("user", userRepo.findOne(userService.getSessionUser().getId()));
 			return "home/home";
 		}

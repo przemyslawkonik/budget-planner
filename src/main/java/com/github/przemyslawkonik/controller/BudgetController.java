@@ -29,14 +29,14 @@ public class BudgetController {
 
 	@GetMapping("")
 	public String budgets(Model model) {
-		model.addAttribute("budget", budgetRepo.findLatest());
+		model.addAttribute("budget", budgetRepo.findLatestByUserId(userService.getSessionUser().getId()));
 		return "budget/budget_menu";
 	}
 
 	@PostMapping("")
 	public String budgets(Model model, @RequestParam(defaultValue = "0") int year,
 			@RequestParam(defaultValue = "0") int month) {
-		model.addAttribute("budget", budgetRepo.findByYearAndMonth(year, month));
+		model.addAttribute("budget", budgetRepo.findByUserAndYearAndMonth(userService.getSessionUser(), year, month));
 		return "budget/budget_menu";
 	}
 
