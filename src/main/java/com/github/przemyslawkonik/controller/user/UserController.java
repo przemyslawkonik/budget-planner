@@ -31,9 +31,9 @@ public class UserController {
 	@Autowired
 	private PaymentMethodRepository paymentRepo;
 
-	@GetMapping("/{id}")
-	public String user(Model model, @PathVariable long id) {
-		model.addAttribute("userMethods", paymentRepo.findAllByUsersId(id));
+	@GetMapping("")
+	public String user(Model model) {
+		model.addAttribute("userMethods", paymentRepo.findAllByUsersId(userService.getSessionUser().getId()));
 		return "user/user_profile";
 	}
 
@@ -66,7 +66,6 @@ public class UserController {
 
 	@GetMapping("/edit/payments/{id}")
 	public String editUserPaymentMethods(Model model, @PathVariable long id) {
-		// model.addAttribute("user", userRepo.findOne(id));
 		model.addAttribute("methods", paymentRepo.findAll());
 		return "/user/user_payment_methods_edit";
 	}
