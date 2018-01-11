@@ -4,8 +4,14 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<ul>
- <c:forEach var="method" items="${userMethods}">
-  <li>${method.name}</li>
- </c:forEach>
-</ul>
+<div class="panel panel-primary">
+ <div class="panel-heading">Payment methods</div>
+ <div class="panel-body">
+  <ul>
+   <c:forEach var="method" items="${userMethods}">
+    <li>${method.name}</li>
+   </c:forEach>
+  </ul>
+  <a href="${pageContext.request.contextPath}/users/edit/payments/${user.id}">Edit</a>
+ </div>
+</div>

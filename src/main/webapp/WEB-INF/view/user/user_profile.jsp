@@ -11,13 +11,8 @@
 <body>
  <%@ include file="../jspf/user/user_info.jspf" %>
  <%@ include file="../jspf/menu/menu_bar.jspf" %>
- <p>Options</p>
  <%@ include file="../jspf/user/user_options.jspf" %>
- <p>Money</p>
  <%@ include file="../jspf/user/user_money.jspf" %>
- <a href="${pageContext.request.contextPath}/users/edit/money/${user.id}">Edit money</a>
- <p>Payment methods</p>
  <%@ include file="../jspf/user/user_payment_methods.jspf" %>
- <a href="${pageContext.request.contextPath}/users/edit/payments/${user.id}">Edit payment methods</a>
 </body>
 </html>

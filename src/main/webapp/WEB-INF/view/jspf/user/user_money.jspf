@@ -4,6 +4,12 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<p>Cash: ${user.cash}</p>
-<p>Account: ${user.accountValue}</p>
-<p>Money balance: ${user.balance}</p>
+<div class="panel panel-primary">
+ <div class="panel-heading">Money</div>
+ <div class="panel-body">
+  <p>Cash: <strong>${user.cash}</strong></p>
+  <p>Account: <strong>${user.accountValue}</strong></p>
+  <p>Money balance: <strong>${user.balance}</strong></p>
+  <a href="${pageContext.request.contextPath}/users/edit/money/${user.id}">Edit</a>
+ </div>
+</div>
