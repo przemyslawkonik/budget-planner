@@ -31,6 +31,6 @@
     <a class="btn btn-primary" href="${pageContext.request.contextPath}/budgets/new">Create new budget</a>
    </div>
   </div>
-</nav>
+ </nav>
 </body>
 </html>
