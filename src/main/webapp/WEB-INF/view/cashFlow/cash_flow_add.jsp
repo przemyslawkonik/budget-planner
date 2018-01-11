@@ -7,14 +7,17 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel='stylesheet' href='webjars/bootstrap/3.3.6/css/bootstrap.min.css'>
+<link rel='stylesheet' href='${pageContext.request.contextPath}/webjars/bootstrap/3.3.6/css/bootstrap.min.css'>
 <title>Budget planner</title>
 </head>
 <body>
  <%@ include file="../jspf/user/user_info.jspf" %>
- <%@ include file="../jspf/user/user_bar.jspf" %>
  <%@ include file="../jspf/menu/menu_bar.jspf" %>
- <p>Add cash flow</p>
- <%@ include file="../jspf/cashFlow/cash_flow_form.jspf" %>
+ <div class="panel panel-primary">
+  <div class="panel-heading text-center"><span>Add cash flow</span></div>
+   <div class="panel-body">
+   <%@ include file="../jspf/cashFlow/cash_flow_form.jspf" %>
+  </div>
+ </div>
 </body>
 </html>

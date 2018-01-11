@@ -1,6 +1,7 @@
 package com.github.przemyslawkonik.entity;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -30,6 +31,10 @@ public class CashFlow {
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Budget budget;
 
+	public CashFlow() {
+		value = new BigDecimal("0");
+	}
+
 	public long getId() {
 		return id;
 	}
@@ -39,7 +44,7 @@ public class CashFlow {
 	}
 
 	public BigDecimal getValue() {
-		return value;
+		return value.setScale(2, RoundingMode.DOWN);
 	}
 
 	public void setValue(BigDecimal value) {
