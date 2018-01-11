@@ -102,11 +102,6 @@ public class Budget {
 	}
 
 	public BigDecimal getPlannedBalance() {
-		// BigDecimal balance = new BigDecimal("0");
-		// for (Plan p : plans) {
-		// balance = balance.add(p.getBalance());
-		// }
-		// return balance.setScale(2, RoundingMode.DOWN);
 		BigDecimal balance = getPlannedIncome().subtract(getPlannedExpense());
 		return balance.setScale(2, RoundingMode.DOWN);
 	}

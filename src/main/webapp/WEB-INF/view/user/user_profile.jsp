@@ -11,7 +11,7 @@
 <body>
  <%@ include file="../jspf/user/user_info.jspf" %>
  <%@ include file="../jspf/menu/menu_bar.jspf" %>
- <%@ include file="../jspf/user/user_options.jspf" %>
+ <%@ include file="../jspf/user/user_basic_info.jspf" %>
  <%@ include file="../jspf/user/user_money.jspf" %>
  <%@ include file="../jspf/user/user_payment_methods.jspf" %>
 </body>
