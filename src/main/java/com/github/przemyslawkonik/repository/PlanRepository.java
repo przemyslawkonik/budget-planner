@@ -10,4 +10,5 @@ import com.github.przemyslawkonik.entity.Plan;
 public interface PlanRepository extends JpaRepository<Plan, Long> {
 
 	public Set<Plan> findByBudget(Budget budget);
+
 }
