@@ -15,7 +15,7 @@
   <div class="panel-heading text-center"><span>Budget ${budget.month}/${budget.year} summary</span></div>
   <div class="panel-body">
    <%@ include file="../jspf/budget/budget_summary.jspf" %>
-   <p>Money balance: <strong>${budget.plannedBalance}</strong></p>
+   <p>Money balance: <strong>${user.money}</strong></p>
   </div>
  </div>
 </body>

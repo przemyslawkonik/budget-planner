@@ -9,14 +9,14 @@
   <th scope="col">Category</th>
   <th scope="col">Planned</th>
   <th scope="col">Reality</th>
-  <th scope="col">Balance</th>
+  <th scope="col">Progress (%)</th>
  </tr>
  <c:forEach var="plan" items="${budget.plans}">
  <tr>
   <td scope="row">${plan.category.description}</td>
   <td scope="row">${plan.value}</td>
   <td scope="row">${plan.reality}</td>
-  <td scope="row">${plan.balance}</td>
+  <td scope="row">${plan.progress}</td>
  </tr>
  </c:forEach>
 </table>

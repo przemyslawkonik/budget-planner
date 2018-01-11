@@ -146,6 +146,11 @@ public class User {
 		return accountValue = getAccountValue().subtract(amount);
 	}
 
+	public BigDecimal getMoney() {
+		BigDecimal money = cash.add(accountValue);
+		return money.setScale(2, RoundingMode.DOWN);
+	}
+
 	public void updateMoney(CashFlow cashFlow) {
 		switch (cashFlow.getCategory().getType()) {
 		case "income": {

@@ -102,11 +102,33 @@ public class Budget {
 	}
 
 	public BigDecimal getPlannedBalance() {
-		BigDecimal balance = new BigDecimal("0");
-		for (Plan p : plans) {
-			balance = balance.add(p.getBalance());
-		}
+		// BigDecimal balance = new BigDecimal("0");
+		// for (Plan p : plans) {
+		// balance = balance.add(p.getBalance());
+		// }
+		// return balance.setScale(2, RoundingMode.DOWN);
+		BigDecimal balance = getPlannedIncome().subtract(getPlannedExpense());
 		return balance.setScale(2, RoundingMode.DOWN);
+	}
+
+	public BigDecimal getPlannedIncome() {
+		BigDecimal income = new BigDecimal("0");
+		for (Plan p : plans) {
+			if (p.getCategory().getType().equals("income")) {
+				income = income.add(p.getValue());
+			}
+		}
+		return income.setScale(2, RoundingMode.DOWN);
+	}
+
+	public BigDecimal getPlannedExpense() {
+		BigDecimal expense = new BigDecimal("0");
+		for (Plan p : plans) {
+			if (p.getCategory().getType().equals("expense")) {
+				expense = expense.add(p.getValue());
+			}
+		}
+		return expense.setScale(2, RoundingMode.DOWN);
 	}
 
 }
