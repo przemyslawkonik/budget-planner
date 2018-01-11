@@ -10,7 +10,6 @@
 </head>
 <body>
  <%@ include file="../jspf/user/user_info.jspf" %>
- <%@ include file="../jspf/user/user_bar.jspf" %>
  <%@ include file="../jspf/menu/menu_bar.jspf" %>
  <p>HOME PAGE</p>
  <%@ include file="../jspf/budget/budget_summary.jspf" %>

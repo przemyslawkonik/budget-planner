@@ -12,7 +12,6 @@
 </head>
 <body>
  <%@ include file="../jspf/user/user_info.jspf" %>
- <%@ include file="../jspf/user/user_bar.jspf" %>
  <%@ include file="../jspf/menu/menu_bar.jspf" %>
  <a href="${pageContext.request.contextPath}/cash_flows/add">Add new cash flow</a>
  <%@ include file="../jspf/cashFlow/cash_flow_table.jspf" %>

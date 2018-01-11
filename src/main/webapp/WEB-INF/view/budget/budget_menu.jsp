@@ -10,7 +10,6 @@
 </head>
 <body>
  <%@ include file="../jspf/user/user_info.jspf" %>
- <%@ include file="../jspf/user/user_bar.jspf" %>
  <%@ include file="../jspf/menu/menu_bar.jspf" %>
  <a href="${pageContext.request.contextPath}/budgets/new">Create new budget</a>
  <form method="post">

@@ -13,4 +13,5 @@
   <li><a href="${pageContext.request.contextPath}/cash_flows">Cash Flows</a></li>
  </c:if>
 </ul>
+ <%@ include file="../user/user_bar.jspf" %>
 </nav>
