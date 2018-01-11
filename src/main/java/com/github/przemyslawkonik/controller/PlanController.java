@@ -42,4 +42,5 @@ public class PlanController {
 		budget.setPlans(plans);
 		return "redirect:/budgets/add";
 	}
+
 }

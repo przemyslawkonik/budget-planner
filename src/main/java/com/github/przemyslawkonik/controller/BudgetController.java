@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.github.przemyslawkonik.bean.SessionManager;
 import com.github.przemyslawkonik.bean.Time;
@@ -27,7 +28,15 @@ public class BudgetController {
 	private Time time;
 
 	@GetMapping("")
-	public String budgets() {
+	public String budgets(Model model) {
+		model.addAttribute("budget", budgetRepo.findLatest());
+		return "budget/budget_menu";
+	}
+
+	@PostMapping("")
+	public String budgets(Model model, @RequestParam(defaultValue = "0") int year,
+			@RequestParam(defaultValue = "0") int month) {
+		model.addAttribute("budget", budgetRepo.findByYearAndMonth(year, month));
 		return "budget/budget_menu";
 	}
 
