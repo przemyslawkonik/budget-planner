@@ -12,9 +12,12 @@
 </head>
 <body>
  <%@ include file="../jspf/user/user_info.jspf" %>
- <%@ include file="../jspf/user/user_bar.jspf" %>
  <%@ include file="../jspf/menu/menu_bar.jspf" %>
- <p>Edit category</p>
- <%@ include file="../jspf/category/category_form.jspf" %>
+ <div class="panel panel-primary">
+  <div class="panel-heading text-center"><span>Edit category</span></div>
+   <div class="panel-body">
+   <%@ include file="../jspf/category/category_form.jspf" %>
+  </div>
+ </div>
 </body>
 </html>
