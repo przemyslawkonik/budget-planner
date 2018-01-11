@@ -42,25 +42,29 @@ public class BudgetController {
 
 	@GetMapping("/new")
 	public String newBudget() {
-		if (!budgetRepo.existsByUserAndYearAndMonth(userService.getSessionUser(), time.getYear(), time.getMonth())) {
-			SessionManager.session().setAttribute("budget", new Budget());
-			return "redirect:/budgets/add";
+		Budget budget = budgetRepo.findLatestByUserId(userService.getSessionUser().getId());
+		Budget newBudget = new Budget();
+		if (budget == null) {
+			newBudget.setYear(time.getYear());
+			newBudget.setMonth(time.getMonth());
+		} else {
+			int nextMonth = time.getNextMonth(budget.getMonth());
+			int nextYear = time.getNextYear(budget.getYear(), budget.getMonth());
+			newBudget.setYear(nextYear);
+			newBudget.setMonth(nextMonth);
 		}
-		return "redirect:/budgets";
+		newBudget.setUser(userService.getSessionUser());
+		SessionManager.session().setAttribute("budget", newBudget);
+		return "redirect:/budgets/add";
 	}
 
 	@GetMapping("/add")
-	public String createBudget(Model model) {
-		Budget budget = (Budget) SessionManager.session().getAttribute("budget");
-		budget.setYear(time.getYear());
-		budget.setMonth(time.getMonth());
-		budget.setUser(userService.getSessionUser());
-		model.addAttribute("budget", budget);
+	public String createBudget() {
 		return "budget/budget_add";
 	}
 
 	@PostMapping("/add")
-	public String createBudget() {
+	public String saveBudget() {
 		Budget budget = (Budget) SessionManager.session().getAttribute("budget");
 		budgetRepo.save(budget);
 		return "redirect:/";

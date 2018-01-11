@@ -20,4 +20,18 @@ public class Time {
 		return dateTime.getMonthOfYear();
 	}
 
+	public int getNextYear(int year, int month) {
+		if (month + 1 > 12) {
+			return year + 1;
+		}
+		return year;
+	}
+
+	public int getNextMonth(int month) {
+		if (month + 1 > 12) {
+			return 1;
+		}
+		return month + 1;
+	}
+
 }
