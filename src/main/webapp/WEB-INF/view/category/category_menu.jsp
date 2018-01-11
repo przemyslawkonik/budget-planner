@@ -10,8 +10,17 @@
 </head>
 <body>
  <%@ include file="../jspf/user/user_info.jspf" %>
- <%@ include file="../jspf/menu/menu_bar.jspf" %>>
- <a href="${pageContext.request.contextPath}/categories/add">Add new category</a>
- <%@ include file="../jspf/category/category_table.jspf" %>
+ <%@ include file="../jspf/menu/menu_bar.jspf" %>
+ <div class="panel panel-primary">
+  <div class="panel-heading text-center"><span>Categories</span></div>
+   <div class="panel-body">
+   <%@ include file="../jspf/category/category_table.jspf" %>
+  </div>
+ </div>
+ <nav class="navbar">
+  <div class="navbar-form navbar-right">
+   <a class="btn btn-primary" href="${pageContext.request.contextPath}/categories/add">Add new category</a>
+  </div>
+ </nav>
 </body>
 </html>
