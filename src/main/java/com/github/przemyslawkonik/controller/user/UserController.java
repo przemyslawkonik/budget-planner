@@ -71,7 +71,12 @@ public class UserController {
 	}
 
 	@PostMapping("/edit/payments/{id}")
-	public String editUserPaymentMethods(@ModelAttribute User user) {
+	public String editUserPaymentMethods(Model model, @ModelAttribute User user) {
+		if (user.getPaymentMethods().size() == 0) {
+			model.addAttribute("methods", paymentRepo.findAll());
+			model.addAttribute("errorMsg", "Select at least one method");
+			return "/user/user_payment_methods_edit";
+		}
 		userRepo.save(user);
 		return "redirect:/users/" + user.getId();
 	}
