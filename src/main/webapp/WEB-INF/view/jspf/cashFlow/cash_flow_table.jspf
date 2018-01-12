@@ -6,6 +6,7 @@
 
 <table class="table table-striped table-hover">
  <tr>
+  <th scope="col">Budget</th>
   <th scope="col">Category</th>
   <th scope="col">Type</th>
   <th scope="col">Value</th>
@@ -14,12 +15,15 @@
  </tr>
  <c:forEach var="cashFlow" items="${cashFlows}">
   <tr>
+   <td scope="row">${cashFlow.budget.name}</td>
    <td scope="row">${cashFlow.category.name}</td>
    <td scope="row">${cashFlow.category.type}</td>
    <td scope="row">${cashFlow.value}</td>
    <td scope="row">${cashFlow.paymentMethod.name}</td>
-   <td scope="row"><a class="btn btn-primary" href="${pageContext.request.contextPath}/cash_flows/edit/${cashFlow.id}">Edit</a></td>
-   <td scope="row"><a class="btn btn-primary" href="${pageContext.request.contextPath}/cash_flows/remove/${cashFlow.id}">Remove</a></td>
+   <c:if test="${cashFlow.budget.active == true}">
+    <td scope="row"><a class="btn btn-primary" href="${pageContext.request.contextPath}/cash_flows/edit/${cashFlow.id}">Edit</a></td>
+    <td scope="row"><a class="btn btn-primary" href="${pageContext.request.contextPath}/cash_flows/remove/${cashFlow.id}">Remove</a></td>
+   </c:if>
   </tr>
  </c:forEach>
 </table>

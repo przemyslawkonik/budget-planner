@@ -86,8 +86,8 @@ public class Plan {
 
 	public BigDecimal getProgress() {
 		try {
-			BigDecimal progress = getReality().divide(value);
-			return progress.multiply(new BigDecimal("100")).setScale(2, RoundingMode.HALF_UP);
+			BigDecimal progress = getReality().divide(getValue(), 2, RoundingMode.HALF_UP);
+			return progress.multiply(new BigDecimal("100")).setScale(0, RoundingMode.HALF_UP);
 		} catch (ArithmeticException e) {
 			return new BigDecimal("0");
 		}

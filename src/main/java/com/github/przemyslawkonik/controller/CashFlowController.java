@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.github.przemyslawkonik.entity.Budget;
 import com.github.przemyslawkonik.entity.CashFlow;
 import com.github.przemyslawkonik.entity.Category;
 import com.github.przemyslawkonik.entity.PaymentMethod;
@@ -80,8 +81,11 @@ public class CashFlowController {
 	@ModelAttribute("categories")
 	public List<Category> categories() {
 		List<Category> categories = new ArrayList<>();
-		for (Plan p : budgetRepo.findLatestByUserId(userService.getSessionUser().getId()).getPlans()) {
-			categories.add(p.getCategory());
+		Budget budget = budgetRepo.findLatestByUserId(userService.getSessionUser().getId());
+		if (budget != null) {
+			for (Plan p : budget.getPlans()) {
+				categories.add(p.getCategory());
+			}
 		}
 		return categories;
 	}

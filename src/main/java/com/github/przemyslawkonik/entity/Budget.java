@@ -36,9 +36,12 @@ public class Budget {
 	@ManyToOne
 	private User user;
 
+	private boolean active;
+
 	public Budget() {
 		plans = new HashSet<>();
 		cashFlows = new HashSet<>();
+		active = true;
 	}
 
 	public long getId() {
@@ -87,6 +90,18 @@ public class Budget {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public String getName() {
+		return month + "/" + year;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 	public BigDecimal getRealityBalance() {

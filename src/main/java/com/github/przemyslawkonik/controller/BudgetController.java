@@ -58,6 +58,8 @@ public class BudgetController {
 			int nextYear = time.getNextYear(budget.getYear(), budget.getMonth());
 			newBudget.setYear(nextYear);
 			newBudget.setMonth(nextMonth);
+			budget.setActive(false);
+			budgetRepo.save(budget);
 		}
 		newBudget.setUser(userService.getSessionUser());
 		SessionManager.session().setAttribute("budget", newBudget);
