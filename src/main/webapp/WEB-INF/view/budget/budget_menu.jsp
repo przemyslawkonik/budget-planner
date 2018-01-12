@@ -16,6 +16,7 @@
   <div class="panel-body">
    <%@ include file="../jspf/budget/budget_details.jspf" %>
    <p>Budget reality balance: <strong>${budget.realityBalance}</strong></p>
+   <p>Budget planned balance: <strong>${budget.plannedBalance}</strong></p>
   </div>
  </div>
  <nav class="navbar navbar-inverse">
