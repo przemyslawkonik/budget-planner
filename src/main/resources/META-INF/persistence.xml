@@ -13,15 +13,18 @@
 			<property name="javax.persistence.jdbc.password" value="coderslab" />
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			<property name="javax.persistence.schema-generation.database.action"
-				value="none" />
+				value="drop-and-create" />
 			<property name="hibernate.hbm2ddl.auto" value="update" />
-<!-- 			<property name="hibernate.show_sql" value="true" /> -->
+			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
 			<property name="hibernate.connection.useUnicode" value="true" />
 			<property name="hibernate.connection.characterEncoding"
 				value="utf8" />
 			<property name="hibernate.connection.CharSet" value="utf8" />
+			<property name="javax.persistence.schema-generation.drop-source" value="script"/>
+			<property name="javax.persistence.schema-generation.drop-script-source" value="META-INF/drop.sql"/>
+			<property name="javax.persistence.sql-load-script-source" value="META-INF/data.sql" />
 		</properties>
 	</persistence-unit>
 </persistence>
