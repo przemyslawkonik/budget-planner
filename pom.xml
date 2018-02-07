@@ -78,10 +78,27 @@
     		<artifactId>jquery</artifactId>
     		<version>2.1.4</version>
 		</dependency>
+		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.1-901-1.jdbc4</version>
+		</dependency>
 	</dependencies>
   
 	<build>
 		<finalName>budget-planner</finalName>
+		<plugins>
+			<plugin>
+				<groupId>com.heroku.sdk</groupId>
+				<artifactId>heroku-maven-plugin</artifactId>
+				<version>2.0.3</version>
+				<configuration>
+					<processTypes>
+						<web>java $JAVA_OPTS -cp target/classes:target/dependency/* AppInitializer</web>
+					</processTypes>
+				</configuration>
+			</plugin>
+		</plugins>
 	</build>
 	
 </project>
