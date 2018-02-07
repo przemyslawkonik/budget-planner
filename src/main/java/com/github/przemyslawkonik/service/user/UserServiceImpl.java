@@ -25,12 +25,13 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User registerUser(User user) {
-		if (!isEmailAvaliable(user.getEmail())) {
+		if (isEmailAvaliable(user.getEmail())) {
+			user.setPassword(passwordEncoder.encode(user.getPassword()));
+			userRepo.save(user);
+			return logInUser(user);
+		} else {
 			throw new UserEmailException();
 		}
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		userRepo.save(user);
-		return logInUser(user);
 	}
 
 	@Override
